@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<ruleset name="myruleset"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+    <description>custom ruleset</description>
+
+    <!-- <exclude-pattern>.*/some/package/.*</exclude-pattern> <exclude-pattern>.*/some/other/package/FunkyClassNamePrefix.*</exclude-pattern>
+        <include-pattern>.*/some/package/ButNotThisClass.*</include-pattern> -->
+
+    <!-- just add rules which need to be customized from here https://pmd.github.io/pmd-6.25.0/pmd_rules_java_errorprone.html -->
+
+    <rule ref="category/java/errorprone.xml">
+        <exclude name="DataflowAnomalyAnalysis"/>
+        <exclude name="BeanMembersShouldSerialize"/>
+    </rule>
+
+</ruleset>

@@ -1,0 +1,103 @@
+componentName: "document-approval-service"
+replicaCount: 1
+
+serviceAccountName:
+  enabled: false
+  name: "aws-sa-custom-policy"
+
+image:
+  repository: <URL_IMAGE>
+  pullPolicy: IfNotPresent
+
+resources:
+  requests:
+    memory: 128Mi
+    cpu: 50m
+  limits:
+    memory: 640Mi
+    cpu: 375m
+
+port:
+  containerPort: 7042
+
+readinessProbe:
+  enabled: false
+
+livenessProbe:
+  enabled: true
+  path: /document-approval-service/api/v1/actuator/info
+  port: 7042
+  initialDelaySeconds: 60
+  periodSeconds: 60
+  timeoutSeconds: 5
+  failureThreshold: 5
+  successThreshold: 1
+
+autoscaling:
+  enabled: true
+  maxReplicas: 1
+  minReplicas: 1
+  targetCPUUtilizationPercentage: 80
+
+envFrom:
+  enabled: true
+
+configMap:
+  enabled: true
+  config:
+    #datasource
+    spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation: "true"
+    spring.datasource.db-ebusiness.driver-class-name: org.postgresql.Driver
+    spring.datasource.db-ebusiness.hikari.maximumPoolSize: "10"
+    spring.datasource.db-ebusiness.hikari.minimumIdle: "5"
+    spring.datasource.db-ebusiness.hikari.poolName: ebusiness-jdbc-pool
+    spring.datasource.db-ebusiness.jdbc-url: "jdbc:postgresql://b2b-test-postgresql-transactional-cenlat-local.c5bwo7dempk6.us-east-1.rds.amazonaws.com:5432/B2B-TRANSACTIONAL-DB?currentSchema=sncf"
+    spring.datasource.db-ebusiness.jmx-enabled: "true"
+    spring.datasource.db-ebusiness.password: "HKv7vVK2rT2z"
+    spring.datasource.db-ebusiness.username: "usr_b2b_test_transactional"
+    spring.datasource.db-ebusiness.currentSchema: "sncf"
+    #
+    management.health.jms.enabled: "true"
+    #activemq
+    connectors.amq.middleware.active: "true"
+    connectors.amq.middleware.host: "10.154.98.222"
+    connectors.amq.middleware.port: 61616?jms.prefetchPolicy.queuePrefetch=0
+    connectors.amq.middleware.user: ENC(fSxofn9wyOqI0nSUxSUOEs1kU/fk9zjM0hOUT10VlDKq2S2WJWuM9SzJHOu35+GD)
+    connectors.amq.middleware.password: ENC(UNSV7fjN0aKNaFOX/1E8xv1R1PaTb2fs40FsjFW/Z/8=)
+    connectors.amq.middleware.maxconnections: "10"
+    connectors.amq.middleware.concurrent-consumers: "8"
+    connectors.amq.middleware.protocol: tcp://
+    #
+    jasypt.encryptor.password: "nuevoediuser"
+    jasypt.encryptor.algorithm: "PBEWITHSHA256AND256BITAES-CBC-BC"
+    jasypt.encryptor.providerClassName: org.bouncycastle.jce.provider.BouncyCastleProvider
+    jasypt.encryptor.providerName: BC
+    jasypt.encryptor.iv-generator-classname: org.jasypt.iv.NoIvGenerator
+    #
+    config.product: productoBase
+    #queues
+    queues.queue-audit-events: test-auditracker-in
+    queues.queue-error-file-process: feco-test-radian-messagebus-error
+    #client-configuration
+    service.client-configuration.active: "false"
+    service.client-configuration.url: "https://nrermwvppi.execute-api.us-east-1.amazonaws.com"
+    service.client-configuration.path: "/test/global-client-configuration-service"
+    service.client-configuration.companies-by-name: "/companies/find-company-by-name?name="
+    service.client-configuration.companies-by-identification: "/companies/find-companies/?identification="
+    service.client-configuration.company-by-identification: "/companies/find-by-identification/?identification="
+
+service:
+  type: ClusterIP
+  port: 7042
+
+ingress:
+  enabled: true
+  ingressClassName: "nginx-internal"
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+  http:
+    enabled: true
+    paths:
+      - path: /document-approval-service/(.*)
+        pathType: Prefix
+  tls: []

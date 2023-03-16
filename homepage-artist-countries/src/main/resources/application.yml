@@ -1,0 +1,33 @@
+server:
+  port: 6070
+  servlet:
+    contextPath: /homepage-artist-service/api/v1
+
+logging:
+  level:
+     org.springframework.web.filter.CommonsRequestLoggingFilter: DEBUG
+
+
+spring:
+  jpa:
+    properties:
+      hibernate.jdbc.lob.non_contextual_creation: true
+
+  datasource:
+    db-ebusiness:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      hikari:
+        maximumPoolSize: 10
+        minimumIdle: 5
+      jdbc-url: "jdbc:mysql://localhost/dbmysqlartistas"
+      jmx-enabled: true
+      password: root
+      username: root
+
+  management:
+    health:
+      jms:
+        enabled: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
