@@ -23,6 +23,10 @@ public class EntySispaisamaestro implements Serializable {
     private String sisCodmunSimu;
 
     @Basic(optional = false)
+    @Column(name = "sis_idemun_simu")
+    private String sisIdemunSimu;
+
+    @Basic(optional = false)
     @Column(name = "sis_idedpt_sidp")
     private String sisIdedptSidp;
 
@@ -36,7 +40,7 @@ public class EntySispaisamaestro implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "sis_secdet_simu")
-    private int  sisSecdetSimu;
+    private Integer  sisSecdetSimu;
 
     @Basic(optional = false)
     @Column(name = "sis_estreg_simu")

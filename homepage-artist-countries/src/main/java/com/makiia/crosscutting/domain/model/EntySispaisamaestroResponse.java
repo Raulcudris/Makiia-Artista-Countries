@@ -15,6 +15,6 @@ public class EntySispaisamaestroResponse {
     private  String rspValue ="OK";
     private  String rspMessage ="OK";
     private  PaginationResponse rspPagination;
-    private  List<EntySispaisamaestro> rspData;
+    private  List<EntySispaisamaestroDto> rspData;
 }
 

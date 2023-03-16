@@ -7,10 +7,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EntySispaisamaestroDto {
-    private String sisCodmunSimu;
-    private String sisIdedptSidp;
-    private String sisCodpaiSipa;
-    private String sisNombreSimu;
+    private String  sisCodmunSimu;
+    private String  sisIdemunSimu;
+    private String  sisIdedptSidp;
+    private String  sisCodpaiSipa;
+    private String  sisNombreSimu;
     private Integer sisSecdetSimu;
-    private String sisEstregSimu;
+    private String  sisEstregSimu;
 }
