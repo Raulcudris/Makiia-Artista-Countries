@@ -12,37 +12,49 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "sispaisamaestro")
-
 public class EntySispaisamaestro implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "sis_codmun_simu")
-    private String sisCodmunSimu;
-
-    @Basic(optional = false)
-    @Column(name = "sis_idemun_simu")
-    private String sisIdemunSimu;
-
-    @Basic(optional = false)
-    @Column(name = "sis_idedpt_sidp")
-    private String sisIdedptSidp;
-
-    @Basic(optional = false)
-    @Column(name = "sis_codpai_Sipa")
+    @Column(name = "sis_codpai_sipa")
     private String  sisCodpaiSipa;
 
     @Basic(optional = false)
-    @Column(name = "sis_nombre_simu")
-    private String  sisNombreSimu;
+    @Column(name = "sis_abrevi_sipa")
+    private String sisAbreviSipa;
 
     @Basic(optional = false)
-    @Column(name = "sis_secdet_simu")
-    private Integer  sisSecdetSimu;
+    @Column(name = "sis_nombre_sipa")
+    private String sisNombreSipa;
 
     @Basic(optional = false)
-    @Column(name = "sis_estreg_simu")
-    private String sisEstregSimu;
+    @Column(name = "sis_indica_sipa")
+    private String sisIndicaSipa;
+
+    @Basic(optional = false)
+    @Column(name = "sis_nombrl_sipa")
+    private String sisNombrelSipa;
+
+    @Basic(optional = false)
+    @Column(name = "sis_codcon_sico")
+    private String  sisCodconSico;
+
+    @Basic(optional = false)
+    @Column(name = "sis_timezo_sipa")
+    private String  sisTimezoSipa;
+
+    @Basic(optional = false)
+    @Column(name = "sis_earadi_sipa")
+    private Integer  sisEaradiSipa;
+
+    @Basic(optional = false)
+    @Column(name = "sis_secdet_sipa")
+    private Integer  sisSecdetSipa;
+
+    @Basic(optional = false)
+    @Column(name = "sis_estreg_sipa")
+    private String  sisEstregSipa;
+
 }

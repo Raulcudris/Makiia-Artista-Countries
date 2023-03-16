@@ -142,34 +142,44 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
             EntySispaisamaestro old = repository.findById(id).get();
 
 
-            old.setSisCodmunSimu(
-                    Objects.nonNull(dto.getSisCodmunSimu())&& !entity.getSisCodmunSimu().isEmpty()
-                            ? entity.getSisCodmunSimu()
-                            :old.getSisCodmunSimu());
-            old.setSisIdemunSimu(
-                    Objects.nonNull(dto.getSisIdemunSimu())&& !entity.getSisIdemunSimu().isEmpty()
-                            ? entity.getSisIdemunSimu()
-                            :old.getSisIdemunSimu());
-            old.setSisIdedptSidp(
-                    Objects.nonNull(dto.getSisIdedptSidp())&& !entity.getSisIdedptSidp().isEmpty()
-                            ? entity.getSisIdedptSidp()
-                            :old.getSisIdedptSidp());
             old.setSisCodpaiSipa(
                     Objects.nonNull(dto.getSisCodpaiSipa())&& !entity.getSisCodpaiSipa().isEmpty()
-                            ?entity.getSisCodpaiSipa()
+                            ? entity.getSisCodpaiSipa()
                             :old.getSisCodpaiSipa());
-            old.setSisNombreSimu(
-                    Objects.nonNull(dto.getSisNombreSimu())&& !entity.getSisNombreSimu().isEmpty()
-                            ?entity.getSisNombreSimu()
-                            :old.getSisNombreSimu());
-            old.setSisSecdetSimu(
-                    Objects.nonNull(dto.getSisSecdetSimu()) && !entity.getSisSecdetSimu().equals(0)
-                            ?entity.getSisSecdetSimu()
-                            :old.getSisSecdetSimu());
-            old.setSisEstregSimu(
-                    Objects.nonNull(dto.getSisEstregSimu()) && !entity.getSisEstregSimu().isEmpty()
-                            ? entity.getSisEstregSimu()
-                            : old.getSisEstregSimu());
+            old.setSisAbreviSipa(
+                    Objects.nonNull(dto.getSisAbreviSipa())&& !entity.getSisAbreviSipa().isEmpty()
+                            ? entity.getSisAbreviSipa()
+                            :old.getSisAbreviSipa());
+            old.setSisNombreSipa(
+                    Objects.nonNull(dto.getSisNombreSipa())&& !entity.getSisNombreSipa().isEmpty()
+                            ? entity.getSisNombreSipa()
+                            :old.getSisNombreSipa());
+            old.setSisIndicaSipa(
+                    Objects.nonNull(dto.getSisIndicaSipa())&& !entity.getSisIndicaSipa().isEmpty()
+                            ?entity.getSisIndicaSipa()
+                            :old.getSisIndicaSipa());
+            old.setSisNombrelSipa(
+                    Objects.nonNull(dto.getSisNombrelSipa())&& !entity.getSisNombrelSipa().isEmpty()
+                            ?entity.getSisNombrelSipa()
+                            :old.getSisNombrelSipa());
+            old.setSisCodconSico(
+                    Objects.nonNull(dto.getSisCodconSico()) && !entity.getSisCodconSico().isEmpty()
+                            ?entity.getSisCodconSico()
+                            :old.getSisCodconSico());
+            old.setSisTimezoSipa(
+                    Objects.nonNull(dto.getSisTimezoSipa()) && !entity.getSisTimezoSipa().isEmpty()
+                            ? entity.getSisTimezoSipa()
+                            : old.getSisTimezoSipa());
+
+            old.setSisEaradiSipa(
+                    Objects.nonNull(dto.getSisEaradiSipa()) && !entity.getSisEaradiSipa().equals(0)
+                            ?entity.getSisEaradiSipa()
+                            :old.getSisEaradiSipa());
+
+            old.setSisSecdetSipa(
+                    Objects.nonNull(dto.getSisSecdetSipa()) && !entity.getSisSecdetSipa().equals(0)
+                            ?entity.getSisSecdetSipa()
+                            :old.getSisSecdetSipa());
 
             return saveResponseTranslate.translate(repository.save(old));
         } catch (PersistenceException | DataAccessException e) {
@@ -198,13 +208,16 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
     private EntySispaisamaestroDto mapToDto(EntySispaisamaestro entySispaisamaestro){
         EntySispaisamaestroDto entity = new EntySispaisamaestroDto();
 
-        entity.setSisCodmunSimu(entySispaisamaestro.getSisCodmunSimu());
-        entity.setSisIdemunSimu(entySispaisamaestro.getSisIdemunSimu());
-        entity.setSisIdedptSidp(entySispaisamaestro.getSisIdedptSidp());
         entity.setSisCodpaiSipa(entySispaisamaestro.getSisCodpaiSipa());
-        entity.setSisNombreSimu(entySispaisamaestro.getSisNombreSimu());
-        entity.setSisSecdetSimu(entySispaisamaestro.getSisSecdetSimu());
-        entity.setSisEstregSimu(entySispaisamaestro.getSisEstregSimu());
+        entity.setSisAbreviSipa(entySispaisamaestro.getSisAbreviSipa());
+        entity.setSisNombreSipa(entySispaisamaestro.getSisNombreSipa());
+        entity.setSisCodpaiSipa(entySispaisamaestro.getSisCodpaiSipa());
+        entity.setSisIndicaSipa(entySispaisamaestro.getSisIndicaSipa());
+        entity.setSisNombrelSipa(entySispaisamaestro.getSisNombrelSipa());
+        entity.setSisCodconSico(entySispaisamaestro.getSisCodconSico());
+        entity.setSisTimezoSipa(entySispaisamaestro.getSisTimezoSipa());
+        entity.setSisEaradiSipa(entySispaisamaestro.getSisEaradiSipa());
+        entity.setSisSecdetSipa(entySispaisamaestro.getSisSecdetSipa());
         return  entity;
     }
 
@@ -222,10 +235,4 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
                 .build();
 
     }
-
-
-
-
-
-
 }
