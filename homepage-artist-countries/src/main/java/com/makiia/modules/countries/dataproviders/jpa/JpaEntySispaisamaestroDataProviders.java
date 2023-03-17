@@ -62,10 +62,11 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
     }
 
     @Override
-    public EntySispaisamaestroResponse getAll(int currentPage , int totalPageSize) throws EBusinessException {
+    public EntySispaisamaestroResponse getAll(int currentPage , int totalPageSize ,String Filter) throws EBusinessException {
         try {
             Pageable pageable = PageRequest.of(currentPage, totalPageSize);
-            Page<EntySispaisamaestro> ResponsePage = repository.findAll(pageable);
+            //Page<EntySispaisamaestro> ResponsePage = repository.findAll(pageable);
+            Page<EntySispaisamaestro>ResponsePage = repository.findNameCountry(pageable,Filter);
             List<EntySispaisamaestro> ListPage = ResponsePage.getContent();
             List<EntySispaisamaestroDto> content  = ListPage.stream().map(p ->mapToDto(p)).collect(Collectors.toList());
 

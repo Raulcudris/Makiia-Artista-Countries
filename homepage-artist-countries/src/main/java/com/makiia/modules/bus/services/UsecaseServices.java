@@ -64,7 +64,7 @@ public class UsecaseServices <T, K> {
      * @throws EBusinessException  excepcion
      * @throws MicroEventException excepcion
      */
-    public EntySispaisamaestroResponse getAll(int currentPage , int PageSize) throws EBusinessException, MicroEventException {
+    public EntySispaisamaestroResponse getAll(int currentPage , int PageSize, String Filter) throws EBusinessException, MicroEventException {
         String transactionalId = UUID.randomUUID().toString();
 
         try {
@@ -73,7 +73,7 @@ public class UsecaseServices <T, K> {
                     ProcessName.EXTERNAL.getDescription(), ProcessName.RECEPTION.getName(),
                     ProcessName.RECEPTION.getDescription(), getAllTraceability());
 
-            return ((IjpaDataProviders<T>) ijpaDataProvider).getAll(currentPage, PageSize);
+            return ((IjpaDataProviders<T>) ijpaDataProvider).getAll(currentPage, PageSize, Filter);
         } catch (EBusinessException e) {
             traceabilityService.createTraceabilityEventDocument(transactionalId, Status.FAIL.getDescription(),
                     TransactionFile.builder().build(), ProcessName.EXTERNAL.getDescription(),
