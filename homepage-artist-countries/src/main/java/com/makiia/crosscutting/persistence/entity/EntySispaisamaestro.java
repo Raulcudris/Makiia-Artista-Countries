@@ -55,6 +55,6 @@ public class EntySispaisamaestro implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "sis_estreg_sipa")
-    private String  sisEstregSipa;
+    private Integer  sisEstregSipa;
 
 }

@@ -23,23 +23,20 @@ import java.util.List;
 public class EntySispaisamaestroWebApi {
     @Autowired
     private EntySispaisamaestroService service;
-
     @GetMapping("getall")
     @ApiOperation(httpMethod = ApiConstants.GET_HTTP, value = ApiConstants.GET_DESC, notes = "")
     public ResponseEntity<List<EntySispaisamaestroDto>> getAll()
             throws EBusinessException, MicroEventException {
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
-
     @GetMapping
     @ApiOperation(httpMethod = ApiConstants.GET_HTTP, value = ApiConstants.GET_ALL_DESC, notes = "")
-    public ResponseEntity<EntySispaisamaestroResponse> getAll(@RequestParam(value = "CurrentPage", required = false) int CurrentPage,
-                                                              @RequestParam(value = "PageSize",  required = false) int PageSize,
+    public ResponseEntity<EntySispaisamaestroResponse> getAll(@RequestParam(value = "CurrentPage",required = false, defaultValue = "0") int CurrentPage,
+                                                              @RequestParam(value = "PageSize",  required = false,  defaultValue = "10") int PageSize,
                                                               @RequestParam(value = "filter") String filter)
             throws EBusinessException, MicroEventException {
         return new ResponseEntity<>(service.getAll(CurrentPage, PageSize, filter), HttpStatus.OK);
     }
-
     @GetMapping(Constants.ID_PRICES_PARAM)
     @ApiOperation(httpMethod = ApiConstants.GET_HTTP, value = ApiConstants.GET_DESC, notes = "")
     public ResponseEntity<EntySispaisamaestroDto>get(@PathVariable(Constants.ID_REST) String id)

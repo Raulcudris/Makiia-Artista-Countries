@@ -16,5 +16,5 @@ public class EntySispaisamaestroDto {
     private String   sisTimezoSipa;
     private Integer  sisEaradiSipa;
     private Integer  sisSecdetSipa;
-    private String   sisEstregSipa;
+    private Integer   sisEstregSipa;
 }

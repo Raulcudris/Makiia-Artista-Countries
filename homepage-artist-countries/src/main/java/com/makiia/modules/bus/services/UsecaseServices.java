@@ -87,8 +87,6 @@ public class UsecaseServices <T, K> {
         }
     }
 
-
-
     /**
      * genera el map que se insertará en la trazabilidad
      *

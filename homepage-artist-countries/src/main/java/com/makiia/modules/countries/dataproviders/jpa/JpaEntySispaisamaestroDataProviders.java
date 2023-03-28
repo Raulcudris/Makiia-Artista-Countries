@@ -1,5 +1,4 @@
 package com.makiia.modules.countries.dataproviders.jpa;
-
 import com.makiia.crosscutting.domain.model.EntySispaisamaestroDto;
 import com.makiia.crosscutting.domain.model.EntySispaisamaestroResponse;
 import com.makiia.crosscutting.domain.model.PaginationResponse;
@@ -18,7 +17,6 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-
 import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +32,6 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
     @Autowired
     @Qualifier("entySispaisamaestroSaveResponseTranslate")
     private Translator<EntySispaisamaestro, EntySispaisamaestroDto>saveResponseTranslate;
-
     @Autowired
     @Qualifier("entySispaisamaestroDtoToEntityTranslate")
     private Translator<EntySispaisamaestroDto, EntySispaisamaestro>dtoToEntityTranslate;
@@ -64,16 +61,18 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
     @Override
     public EntySispaisamaestroResponse getAll(int currentPage , int totalPageSize ,String filter) throws EBusinessException {
         try {
+            currentPage = currentPage -1;
+            totalPageSize = totalPageSize-1;
             Pageable pageable = PageRequest.of(currentPage, totalPageSize);
             Page<EntySispaisamaestro>ResponsePage = repository.findNameCountry(filter,pageable);
             List<EntySispaisamaestro> ListPage = ResponsePage.getContent();
             List<EntySispaisamaestroDto> content  = ListPage.stream().map(p ->mapToDto(p)).collect(Collectors.toList());
-
             EntySispaisamaestroResponse response = new EntySispaisamaestroResponse();
-
             response.setRspMessage(response.getRspMessage());
             response.setRspValue(response.getRspValue());
-            response.setRspPagination(headResponse(ResponsePage.getNumber(),ResponsePage.getSize() , ResponsePage.getTotalElements(),ResponsePage.getTotalPages() , ResponsePage.hasNext(), ResponsePage.hasPrevious()));
+            currentPage = currentPage+1;
+            totalPageSize = totalPageSize+1;
+            response.setRspPagination(headResponse(currentPage, totalPageSize , ResponsePage.getTotalElements(),ResponsePage.getTotalPages() , ResponsePage.hasNext(), ResponsePage.hasPrevious()));
             response.setRspData(content);
             return response;
 
@@ -218,6 +217,7 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
         entity.setSisTimezoSipa(entySispaisamaestro.getSisTimezoSipa());
         entity.setSisEaradiSipa(entySispaisamaestro.getSisEaradiSipa());
         entity.setSisSecdetSipa(entySispaisamaestro.getSisSecdetSipa());
+        entity.setSisEstregSipa(entySispaisamaestro.getSisEstregSipa());
         return  entity;
     }
 
