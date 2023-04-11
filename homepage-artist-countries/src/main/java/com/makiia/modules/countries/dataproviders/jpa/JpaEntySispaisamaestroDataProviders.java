@@ -59,23 +59,29 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
     }
 
     @Override
-    public EntySispaisamaestroResponse getAll(int currentPage , int totalPageSize ,String filter) throws EBusinessException {
+    public EntySispaisamaestroResponse getAll(int currentPage , int totalPageSize , String parameter,String filter) throws EBusinessException {
         try {
-            currentPage = currentPage -1;
-            totalPageSize = totalPageSize-1;
+            currentPage = currentPage - 1;
             Pageable pageable = PageRequest.of(currentPage, totalPageSize);
-            Page<EntySispaisamaestro>ResponsePage = repository.findNameCountry(filter,pageable);
+            Page<EntySispaisamaestro> ResponsePage = null;
+            if (parameter.equals("KEY")) {
+                ResponsePage = repository.findNameCountry(filter, pageable);
+            }else {
+                ResponsePage = repository.findCodCountry(parameter,pageable);
+            }
             List<EntySispaisamaestro> ListPage = ResponsePage.getContent();
-            List<EntySispaisamaestroDto> content  = ListPage.stream().map(p ->mapToDto(p)).collect(Collectors.toList());
+            List<EntySispaisamaestroDto> content = ListPage.stream().map(p -> mapToDto(p)).collect(Collectors.toList());
+
             EntySispaisamaestroResponse response = new EntySispaisamaestroResponse();
             response.setRspMessage(response.getRspMessage());
             response.setRspValue(response.getRspValue());
-            currentPage = currentPage+1;
-            totalPageSize = totalPageSize+1;
-            response.setRspPagination(headResponse(currentPage, totalPageSize , ResponsePage.getTotalElements(),ResponsePage.getTotalPages() , ResponsePage.hasNext(), ResponsePage.hasPrevious()));
+
+            currentPage = currentPage + 1;
+            String nextPageUrl = "LocalHost";
+            String previousPageUrl = "LocalHost";
+            response.setRspPagination(headResponse(currentPage, totalPageSize, ResponsePage.getTotalElements(), ResponsePage.getTotalPages(), ResponsePage.hasNext(), ResponsePage.hasPrevious(), nextPageUrl, previousPageUrl));
             response.setRspData(content);
             return response;
-
 
         } catch (PersistenceException | DataAccessException e) {
             throw ExceptionBuilder.builder()
@@ -85,6 +91,7 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
                     .buildBusinessException();
         }
     }
+
 
     @Override
     public EntySispaisamaestroDto get(String id) throws EBusinessException {
@@ -223,7 +230,8 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
 
     public static PaginationResponse headResponse(int currentPage    , int totalPageSize ,
                                                   long totalResults  , int totalPages,
-                                                  boolean hasNextPage, boolean hasPreviousPage)
+                                                  boolean hasNextPage, boolean hasPreviousPage,
+                                                  String nextpageUrl , String previousPageUrl )
     {
         return PaginationResponse.builder()
                 .currentPage(currentPage)
@@ -232,6 +240,8 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
                 .totalPages(totalPages)
                 .hasNextPage(hasNextPage)
                 .hasPreviousPage(hasPreviousPage)
+                .nextPageUrl(nextpageUrl)
+                .previousPageUrl(previousPageUrl)
                 .build();
 
     }

@@ -31,11 +31,12 @@ public class EntySispaisamaestroWebApi {
     }
     @GetMapping
     @ApiOperation(httpMethod = ApiConstants.GET_HTTP, value = ApiConstants.GET_ALL_DESC, notes = "")
-    public ResponseEntity<EntySispaisamaestroResponse> getAll(@RequestParam(value = "CurrentPage",required = false, defaultValue = "0") int CurrentPage,
-                                                              @RequestParam(value = "PageSize",  required = false,  defaultValue = "10") int PageSize,
-                                                              @RequestParam(value = "filter") String filter)
-            throws EBusinessException, MicroEventException {
-        return new ResponseEntity<>(service.getAll(CurrentPage, PageSize, filter), HttpStatus.OK);
+    public ResponseEntity<EntySispaisamaestroResponse> getAll(@RequestParam(value = "currentpage",required = false,defaultValue = "0") int currentPage,
+                                                              @RequestParam(value = "pagesize",required = false,defaultValue = "10")  int pagesize,
+                                                              @RequestParam(value = "parameter",required = false,defaultValue = "KEY") String parameter,
+                                                              @RequestParam(value = "filter",required = false ) String filter)
+     throws EBusinessException, MicroEventException {
+          return new ResponseEntity<>(service.getAll(currentPage, pagesize, parameter ,filter), HttpStatus.OK);
     }
     @GetMapping(Constants.ID_PRICES_PARAM)
     @ApiOperation(httpMethod = ApiConstants.GET_HTTP, value = ApiConstants.GET_DESC, notes = "")

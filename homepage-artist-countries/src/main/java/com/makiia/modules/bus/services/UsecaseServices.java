@@ -64,7 +64,7 @@ public class UsecaseServices <T, K> {
      * @throws EBusinessException  excepcion
      * @throws MicroEventException excepcion
      */
-    public EntySispaisamaestroResponse getAll(int currentPage , int PageSize, String filter) throws EBusinessException, MicroEventException {
+    public EntySispaisamaestroResponse getAll(int currentPage , int pageSize,String parameter ,String filter) throws EBusinessException, MicroEventException {
         String transactionalId = UUID.randomUUID().toString();
 
         try {
@@ -73,7 +73,7 @@ public class UsecaseServices <T, K> {
                     ProcessName.EXTERNAL.getDescription(), ProcessName.RECEPTION.getName(),
                     ProcessName.RECEPTION.getDescription(), getAllTraceability());
 
-            return ((IjpaDataProviders<T>) ijpaDataProvider).getAll(currentPage, PageSize, filter);
+            return ((IjpaDataProviders<T>) ijpaDataProvider).getAll(currentPage, pageSize,parameter ,filter);
         } catch (EBusinessException e) {
             traceabilityService.createTraceabilityEventDocument(transactionalId, Status.FAIL.getDescription(),
                     TransactionFile.builder().build(), ProcessName.EXTERNAL.getDescription(),
@@ -86,6 +86,7 @@ public class UsecaseServices <T, K> {
                     .buildBusinessException();
         }
     }
+
 
     /**
      * genera el map que se insertará en la trazabilidad

@@ -9,10 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class PaginationResponse {
-    private int currentPage;
-    private int totalPageSize;
-    private long totalResults;
-    private int totalPages;
-    private boolean hasNextPage;
-    private boolean hasPreviousPage;
+    private int currentPage = 0;
+    private int totalPageSize = 0;
+    private long totalResults = 0;
+    private int totalPages = 0;
+    private boolean hasNextPage = false;
+    private boolean hasPreviousPage = false;
+    private String nextPageUrl = "localhost";
+    private String previousPageUrl = "localhost";
 }

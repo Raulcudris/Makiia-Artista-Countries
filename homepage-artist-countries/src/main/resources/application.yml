@@ -1,7 +1,7 @@
 server:
   port: 6070
   servlet:
-    contextPath: /homepage-artist-service/api/v1
+    contextPath: /api
 
 logging:
   level:

@@ -14,7 +14,9 @@ import java.util.List;
 public class EntySispaisamaestroResponse {
     private  String rspValue ="OK";
     private  String rspMessage ="OK";
-    private  PaginationResponse rspPagination;
+    private  String rspParentKey = "NA";
+    private  String rspAppKey = "NA";
+    private  PaginationResponse rspPagination = new PaginationResponse();
     private  List<EntySispaisamaestroDto> rspData;
 }
 

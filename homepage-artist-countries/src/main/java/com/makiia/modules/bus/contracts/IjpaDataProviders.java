@@ -6,7 +6,7 @@ import java.util.List;
 public interface  IjpaDataProviders<T> {
 
     List<T> getAll() throws EBusinessException;
-    EntySispaisamaestroResponse getAll (int currentPage , int PageSize, String filter) throws EBusinessException;
+    EntySispaisamaestroResponse getAll (int currentPage , int pageSize, String parameter, String filter) throws EBusinessException;
     T get(String id) throws EBusinessException;
     T save(T dto) throws EBusinessException;
     List<T> save(List<T> dto) throws EBusinessException;
