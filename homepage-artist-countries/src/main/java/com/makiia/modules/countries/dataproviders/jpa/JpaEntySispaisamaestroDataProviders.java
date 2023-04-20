@@ -212,20 +212,20 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
     }
 
     private EntySispaisamaestroDto mapToDto(EntySispaisamaestro entySispaisamaestro){
-        EntySispaisamaestroDto entity = new EntySispaisamaestroDto();
+        EntySispaisamaestroDto dtos = new EntySispaisamaestroDto();
 
-        entity.setSisCodpaiSipa(entySispaisamaestro.getSisCodpaiSipa());
-        entity.setSisAbreviSipa(entySispaisamaestro.getSisAbreviSipa());
-        entity.setSisNombreSipa(entySispaisamaestro.getSisNombreSipa());
-        entity.setSisCodpaiSipa(entySispaisamaestro.getSisCodpaiSipa());
-        entity.setSisIndicaSipa(entySispaisamaestro.getSisIndicaSipa());
-        entity.setSisNombrelSipa(entySispaisamaestro.getSisNombrelSipa());
-        entity.setSisCodconSico(entySispaisamaestro.getSisCodconSico());
-        entity.setSisTimezoSipa(entySispaisamaestro.getSisTimezoSipa());
-        entity.setSisEaradiSipa(entySispaisamaestro.getSisEaradiSipa());
-        entity.setSisSecdetSipa(entySispaisamaestro.getSisSecdetSipa());
-        entity.setSisEstregSipa(entySispaisamaestro.getSisEstregSipa());
-        return  entity;
+        dtos.setSisCodpaiSipa(entySispaisamaestro.getSisCodpaiSipa());
+        dtos.setSisAbreviSipa(entySispaisamaestro.getSisAbreviSipa());
+        dtos.setSisNombreSipa(entySispaisamaestro.getSisNombreSipa());
+        dtos.setSisCodpaiSipa(entySispaisamaestro.getSisCodpaiSipa());
+        dtos.setSisIndicaSipa(entySispaisamaestro.getSisIndicaSipa());
+        dtos.setSisNombrelSipa(entySispaisamaestro.getSisNombrelSipa());
+        dtos.setSisCodconSico(entySispaisamaestro.getSisCodconSico());
+        dtos.setSisTimezoSipa(entySispaisamaestro.getSisTimezoSipa());
+        dtos.setSisEaradiSipa(entySispaisamaestro.getSisEaradiSipa());
+        dtos.setSisSecdetSipa(entySispaisamaestro.getSisSecdetSipa());
+        dtos.setSisEstregSipa(entySispaisamaestro.getSisEstregSipa());
+        return  dtos;
     }
 
     public static PaginationResponse headResponse(int currentPage    , int totalPageSize ,

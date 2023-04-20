@@ -15,10 +15,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 		"com.makiia.crosscutting.persistence.repository"})
 @EntityScan(basePackages = "com.makiia.crosscutting.persistence.entity")
 @EnableWebMvc
-public class HomepageArtistApplication {
+public class MakiiaArtistCountriesApplication {
 
 	public static void main(final String[] args) {
-		SpringApplication.run(HomepageArtistApplication.class, args);
+		SpringApplication.run(MakiiaArtistCountriesApplication.class, args);
 	}
 
 }
