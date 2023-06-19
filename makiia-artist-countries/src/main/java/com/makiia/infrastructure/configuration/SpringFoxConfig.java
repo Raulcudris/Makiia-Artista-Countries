@@ -1,6 +1,4 @@
 package com.makiia.infrastructure.configuration;
-
-
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
@@ -14,12 +12,9 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.spring.web.plugins.WebFluxRequestHandlerProvider;
 import springfox.documentation.spring.web.plugins.WebMvcRequestHandlerProvider;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.stream.Collectors;
-
-
 @Configuration
 @EnableSwagger2
 public class SpringFoxConfig {

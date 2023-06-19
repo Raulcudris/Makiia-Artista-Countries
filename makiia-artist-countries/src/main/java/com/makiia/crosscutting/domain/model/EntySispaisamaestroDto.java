@@ -1,5 +1,9 @@
 package com.makiia.crosscutting.domain.model;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Builder
@@ -7,6 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EntySispaisamaestroDto {
+    private Integer  recUnikeySipa;
     private String   sisCodpaiSipa;
     private String   sisAbreviSipa;
     private String   sisNombreSipa;

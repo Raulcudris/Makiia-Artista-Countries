@@ -1,4 +1,18 @@
 package com.makiia.modules.countries.dataproviders.jpa;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+import javax.persistence.PersistenceException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+
 import com.makiia.crosscutting.domain.model.EntySispaisamaestroDto;
 import com.makiia.crosscutting.domain.model.EntySispaisamaestroResponse;
 import com.makiia.crosscutting.domain.model.PaginationResponse;
@@ -10,20 +24,7 @@ import com.makiia.crosscutting.patterns.Translator;
 import com.makiia.crosscutting.persistence.entity.EntySispaisamaestro;
 import com.makiia.crosscutting.persistence.repository.EntySispaisamaestroRepository;
 import com.makiia.modules.countries.dataproviders.IjpaEntySispaisamaestroDataProviders;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import javax.persistence.PersistenceException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
-@Log4j2
 @DataProvider
 public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaestroDataProviders {
 
@@ -36,19 +37,32 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
     @Qualifier("entySispaisamaestroDtoToEntityTranslate")
     private Translator<EntySispaisamaestroDto, EntySispaisamaestro>dtoToEntityTranslate;
 
+
     @Override
-    public List<EntySispaisamaestroDto> getAll() throws EBusinessException {
-        List<EntySispaisamaestroDto> dtos = new ArrayList<>();
+    public EntySispaisamaestroResponse getAll() throws EBusinessException {
         try {
             List<EntySispaisamaestro> responses = (List<EntySispaisamaestro>) repository.findAll();
+            int currentPage=0;
+            int totalPageSize=responses.size();
+            Pageable pageable = PageRequest.of(currentPage, totalPageSize);
+            //Pageable paginacion
+            Page<EntySispaisamaestro> ResponsePage = null;
+            ResponsePage = repository.findAll(pageable);
 
-            if (!responses.isEmpty()) {
-                for (EntySispaisamaestro response : responses) {
-                    dtos.add(saveResponseTranslate.translate(response));
-                }
-            }
+            List<EntySispaisamaestro> ListPage = ResponsePage.getContent();
+            List<EntySispaisamaestroDto> content  = ListPage.stream().map(p ->mapToDto(p)).collect(Collectors.toList());
 
-            return dtos;
+            EntySispaisamaestroResponse response = new EntySispaisamaestroResponse();
+            response.setRspMessage(response.getRspMessage());
+            response.setRspValue(response.getRspValue());
+
+            currentPage = currentPage + 1;
+            String nextPageUrl = "LocalHost";
+            String previousPageUrl = "LocalHost";
+            response.setRspPagination(headResponse(currentPage, totalPageSize, ResponsePage.getTotalElements(), ResponsePage.getTotalPages(), ResponsePage.hasNext(), ResponsePage.hasPrevious(), nextPageUrl, previousPageUrl));
+            response.setRspData(content);
+            return response;
+
         } catch (PersistenceException | DataAccessException e) {
             throw ExceptionBuilder.builder()
                     .withMessage(SearchMessages.SEARCH_ERROR_DESCRIPTION)
@@ -58,13 +72,16 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
         }
     }
 
+
+
+
     @Override
-    public EntySispaisamaestroResponse getAll(int currentPage , int totalPageSize , String parameter,String filter) throws EBusinessException {
+    public EntySispaisamaestroResponse getAll(int currentPage , int totalPageSize , Integer parameter,String filter) throws EBusinessException {
         try {
             currentPage = currentPage - 1;
             Pageable pageable = PageRequest.of(currentPage, totalPageSize);
             Page<EntySispaisamaestro> ResponsePage = null;
-            if (parameter.equals("KEY")) {
+            if (parameter.equals(0)) {
                 ResponsePage = repository.findNameCountry(filter, pageable);
             }else {
                 ResponsePage = repository.findCodCountry(parameter,pageable);
@@ -94,7 +111,7 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
 
 
     @Override
-    public EntySispaisamaestroDto get(String id) throws EBusinessException {
+    public EntySispaisamaestroDto get(Integer id) throws EBusinessException {
         try {
             return saveResponseTranslate.translate(repository.findById(id).get());
         } catch (PersistenceException | DataAccessException e) {
@@ -142,7 +159,7 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
     }
 
     @Override
-    public EntySispaisamaestroDto update(String id, EntySispaisamaestroDto dto) throws EBusinessException {
+    public EntySispaisamaestroDto update(Integer id, EntySispaisamaestroDto dto) throws EBusinessException {
         try {
             EntySispaisamaestro entity = dtoToEntityTranslate.translate(dto);
             EntySispaisamaestro old = repository.findById(id).get();
@@ -199,7 +216,7 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
     }
 
     @Override
-    public void delete(String id) throws EBusinessException {
+    public void delete(Integer id) throws EBusinessException {
         try {
             repository.delete(repository.findById(id).get());
         } catch (PersistenceException | DataAccessException e) {
@@ -213,7 +230,7 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
 
     private EntySispaisamaestroDto mapToDto(EntySispaisamaestro entySispaisamaestro){
         EntySispaisamaestroDto dtos = new EntySispaisamaestroDto();
-
+        dtos.setRecUnikeySipa(entySispaisamaestro.getRecUnikeySipa());
         dtos.setSisCodpaiSipa(entySispaisamaestro.getSisCodpaiSipa());
         dtos.setSisAbreviSipa(entySispaisamaestro.getSisAbreviSipa());
         dtos.setSisNombreSipa(entySispaisamaestro.getSisNombreSipa());
