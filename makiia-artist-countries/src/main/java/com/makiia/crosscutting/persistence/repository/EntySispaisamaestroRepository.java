@@ -9,9 +9,9 @@ import org.springframework.data.jpa.repository.Query;
 import com.makiia.crosscutting.persistence.entity.EntySispaisamaestro;
 public interface EntySispaisamaestroRepository extends JpaRepository<EntySispaisamaestro,Integer>
 {
-        String FILTER_COUNTRIES_CODCOUNTRIES_QUERY = "select c from EntySispaisamaestro c  where c.recUnikeySipa  = ?1";
-        @Query(value = FILTER_COUNTRIES_CODCOUNTRIES_QUERY)
-        Page<EntySispaisamaestro> findCodCountry(Integer parameter,Pageable pageable);
+        String FILTE_RRECUNIKEYSIPA_QUERY = "select c from EntySispaisamaestro c  where c.recUnikeySipa  = ?1";
+        @Query(value = FILTE_RRECUNIKEYSIPA_QUERY)
+        Page<EntySispaisamaestro> findfindByRecUnikeySipa(Integer filter,Pageable pageable);
 
         String FILTER_COUNTRIES_NAMECOUNTRY_QUERY = "select c from EntySispaisamaestro c where UPPER(c.sisNombreSipa) like concat('%',upper(?1),'%')";
         @Query(value = FILTER_COUNTRIES_NAMECOUNTRY_QUERY)

@@ -42,7 +42,7 @@ public class EntySispaisamaestroWebApi {
     @ApiOperation(httpMethod = ApiConstants.GET_HTTP, value = ApiConstants.GET_ALL_DESC, notes = "")
     public ResponseEntity<EntySispaisamaestroResponse> getAll(@RequestParam(value = "currentpage",required = false,defaultValue = "0") int currentPage,
                                                               @RequestParam(value = "pagesize",required = false,defaultValue = "10")  int pagesize,
-                                                              @RequestParam(value = "parameter",required = false) Integer parameter,
+                                                              @RequestParam(value = "parameter",required = false) String parameter,
                                                               @RequestParam(value = "filter",required = false ) String filter)
      throws EBusinessException, MicroEventException {
           return new ResponseEntity<>(service.getAll(currentPage, pagesize, parameter ,filter), HttpStatus.OK);

@@ -1,17 +1,24 @@
-package com.makiia.modules.bus.services;
+package com.makiia.modules.countries.services;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.UUID;
+
+import org.springframework.jms.JmsException;
+import org.springframework.stereotype.Component;
 
 import com.makiia.crosscutting.domain.model.traceability.Traceability;
 import com.makiia.crosscutting.domain.model.traceability.TraceabilityEvent;
 import com.makiia.crosscutting.domain.model.traceability.TransactionFile;
 import com.makiia.crosscutting.exceptions.MicroEventException;
 import com.makiia.crosscutting.utils.GsonUtil;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.jms.JmsException;
-import org.springframework.stereotype.Component;
-
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 @Slf4j
 @Component
@@ -26,9 +33,9 @@ public class TraceabilityService {
 
     private static final String TRANSACTION_ID = "transactionId";
 
-    private static final String COMPONENT = "ApprovalServices";
+    private static final String COMPONENT = "CountriesServices";
 
-    private static final String SERVICE = "RADIAN";
+    private static final String SERVICE = "COUNTRIES";
 
     private static final Locale LOCALE = new Locale("es", "CO");
 

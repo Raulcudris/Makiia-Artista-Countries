@@ -76,15 +76,16 @@ public class JpaEntySispaisamaestroDataProviders implements IjpaEntySispaisamaes
 
 
     @Override
-    public EntySispaisamaestroResponse getAll(int currentPage , int totalPageSize , Integer parameter,String filter) throws EBusinessException {
+    public EntySispaisamaestroResponse getAll(int currentPage , int totalPageSize , String parameter,String filter) throws EBusinessException {
         try {
             currentPage = currentPage - 1;
             Pageable pageable = PageRequest.of(currentPage, totalPageSize);
             Page<EntySispaisamaestro> ResponsePage = null;
-            if (parameter.equals(0)) {
-                ResponsePage = repository.findNameCountry(filter, pageable);
+            if (parameter.equals("PKEY")) {
+                ResponsePage = repository.findfindByRecUnikeySipa(Integer.parseInt(filter), pageable);
             }else {
-                ResponsePage = repository.findCodCountry(parameter,pageable);
+                //FKEY
+                ResponsePage = repository.findNameCountry(filter,pageable);
             }
             List<EntySispaisamaestro> ListPage = ResponsePage.getContent();
             List<EntySispaisamaestroDto> content = ListPage.stream().map(p -> mapToDto(p)).collect(Collectors.toList());

@@ -1,4 +1,4 @@
-package com.makiia.modules.bus.contracts;
+package com.makiia.modules.countries.contracts;
 
 public interface MicroEvent<T> {
     /**

@@ -14,9 +14,9 @@ import com.makiia.crosscutting.domain.model.EntySispaisamaestroResponse;
 import com.makiia.crosscutting.exceptions.ExceptionBuilder;
 import com.makiia.crosscutting.exceptions.Main.EBusinessException;
 import com.makiia.crosscutting.messages.SearchMessages;
-import com.makiia.modules.bus.services.UseCase;
-import com.makiia.modules.bus.services.UsecaseServices;
 import com.makiia.modules.countries.dataproviders.jpa.JpaEntySispaisamaestroDataProviders;
+import com.makiia.modules.countries.services.UseCase;
+import com.makiia.modules.countries.services.UsecaseServices;
 
 @UseCase
 public class EntySispaisamaestroService extends UsecaseServices<EntySispaisamaestroDto, JpaEntySispaisamaestroDataProviders>

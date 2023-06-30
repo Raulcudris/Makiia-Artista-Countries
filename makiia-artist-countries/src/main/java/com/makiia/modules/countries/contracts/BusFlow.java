@@ -1,4 +1,4 @@
-package com.makiia.modules.bus.contracts;
+package com.makiia.modules.countries.contracts;
 
 public enum BusFlow {
     BOX_TYPE, BUS_FLOW_ENTER, INDEX_APLICATION_TYPE, BLOCKING_REASONS, CONDITIONED_DOCK, FIXED_APPOINTMENTS,
